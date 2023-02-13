@@ -5,15 +5,15 @@ This is an Order Management microservice built using Golang and MySQL.
 The Directory structure is as follows
 
 ```
-app
+app/
 │
-├── src
+├── src/
 |	├── routes/
 |	│   	└── routes.go
-|	└── models
-| 			  └── models.go
-├── pkg
-├── bin
+|	└── models/
+| 			 └── models.go
+├── pkg/
+├── bin/
 ├── README.md
 ├── microservice_test.go
 ├── Dockerfile
