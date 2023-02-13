@@ -244,7 +244,8 @@ func (ctx Context) ViewOrderByID(w http.ResponseWriter, r *http.Request) {
 	}
 
 	byte_op, _ := json.Marshal(op)
-	WriteResponse(w, r, byte_op, http.StatusAccepted)
+	WriteResponse(w, r, byte_op, http.StatusOK)
+
 }
 
 // Middleware for logging the requests
