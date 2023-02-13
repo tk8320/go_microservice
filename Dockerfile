@@ -18,6 +18,6 @@ RUN go build -o main .
 ## Our start command which kicks off
 ## our newly created binary executable
 EXPOSE 8080
+RUN go test -v . 
 CMD ["/app/main"]
 
-# RUN go test -v . > test.out

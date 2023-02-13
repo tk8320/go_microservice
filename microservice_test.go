@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	route "go_microservice/routes"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -10,6 +11,12 @@ import (
 
 var A = App{route.InitContext()}
 var Router = A.CreateHandler()
+
+func TestSetupSuite(tb *testing.T) {
+	log.Println("Performing Database setup")
+	A.SetUpDb()
+	// Return a function to teardown the test
+}
 
 func TestConnection(t *testing.T) {
 	req, err := http.NewRequest("GET", "/hello", nil)
@@ -153,4 +160,10 @@ func TestSearchOrder(t *testing.T) {
 		t.Errorf("handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
 	}
+}
+
+func TestTeardownSuite(tb *testing.T) {
+	log.Println("Performing Teardown")
+	A.SetUpDb()
+	// Return a function to teardown the test
 }
