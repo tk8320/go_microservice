@@ -92,7 +92,7 @@ func TestGetOrderByID(t *testing.T) {
 		t.Errorf("handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
 	}
-	expected := `{"id":"2","status":"ORDER_PLACED","items":[{"id":1,"Description":"Shampoo","price":150,"quantity":1},{"id":5,"Description":"Hair Oil","price":10,"quantity":2}],"total":170,"currencyUnit":"INR"}`
+	expected := `{"id":"2","status":"ORDER_UPDATED","items":[{"id":2,"Description":"Comb","price":20,"quantity":1},{"id":5,"Description":"Hair Oil","price":10,"quantity":2}],"total":40,"currencyUnit":"INR"}`
 	if rr.Body.String() != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)

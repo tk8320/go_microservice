@@ -13,8 +13,11 @@ RUN go get github.com/gorilla/mux
 ENV GOPATH /app
 
 ## Our project will now successfully build with the necessary go libraries included.
+
 RUN go build -o main .
 ## Our start command which kicks off
 ## our newly created binary executable
 EXPOSE 8080
 CMD ["/app/main"]
+
+# RUN go test -v . > test.out

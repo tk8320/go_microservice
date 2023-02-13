@@ -15,23 +15,23 @@ import (
 )
 
 type Context struct {
-	db *sql.DB
+	Db *sql.DB
 }
 
 // Initialize the database connections
 func InitContext() Context {
 	log.Println("Initiating the database connection")
 	dsn := fmt.Sprintf("go_root:%s@tcp(db4free.net:3306)/go_microservice?charset=utf8&parseTime=True", "Password!123")
-	db, err := sql.Open("mysql", dsn)
+	Db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		log.Fatalln("Unable to connect to the database. Closing service...")
 	}
 
-	err = db.Ping()
+	err = Db.Ping()
 	if err != nil {
 		log.Fatalln("Unable to connect to the database. Closing service...")
 	}
-	return Context{db}
+	return Context{Db}
 }
 
 // Update the Order with id.
@@ -60,7 +60,7 @@ func (ctx Context) UpdateOrder(w http.ResponseWriter, r *http.Request) {
 	log.Println(query)
 	log.Printf("Updating the order with id : %d\n", id)
 
-	_, err = ctx.db.Exec(query)
+	_, err = ctx.Db.Exec(query)
 
 	if err != nil {
 		log.Println("Unable to update : ", err)
@@ -117,7 +117,7 @@ func (ctx Context) SearchOrder(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Println(search_query)
 
-	res, err := ctx.db.Query(search_query)
+	res, err := ctx.Db.Query(search_query)
 	if err != nil {
 		HandleError(w, r, err, "Error Querying data", http.StatusBadRequest)
 	}
@@ -150,7 +150,7 @@ func (ctx Context) SearchOrder(w http.ResponseWriter, r *http.Request) {
 func (ctx Context) DeleteOrder(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
 	query := fmt.Sprintf("DELETE from tbl_orders WHERE id = %d", id)
-	res, err := ctx.db.Exec(query)
+	res, err := ctx.Db.Exec(query)
 	count, _ := res.RowsAffected()
 	if count == 0 {
 		log.Println("Data Not Availabe")
@@ -180,7 +180,7 @@ func (ctx Context) CreateOrder(w http.ResponseWriter, r *http.Request) {
 		item_string, _ := json.Marshal(order_data.Items)
 		query := fmt.Sprintf("INSERT INTO tbl_orders(status, items, total, currency) VALUES ('%s','%s',%f,'%s')", order_data.Status, item_string, order_data.Total, order_data.Currency)
 		log.Println(query)
-		_, err = ctx.db.Query(query)
+		_, err = ctx.Db.Query(query)
 		if err != nil {
 			log.Println(err)
 			WriteResponse(w, r, []byte("Insert failed"), http.StatusBadRequest)
@@ -195,7 +195,7 @@ func (ctx Context) ViewOrder(w http.ResponseWriter, r *http.Request) {
 
 	var OrderList []model.Order
 	query := "SELECT * FROM tbl_orders"
-	res, err := ctx.db.Query(query)
+	res, err := ctx.Db.Query(query)
 	if err != nil {
 		HandleError(w, r, err, "Error Querying data", http.StatusBadRequest)
 	}
@@ -228,7 +228,7 @@ func (ctx Context) ViewOrderByID(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
 
 	query := fmt.Sprintf("Select * from tbl_orders where id = %d", id)
-	res := ctx.db.QueryRow(query)
+	res := ctx.Db.QueryRow(query)
 	var op model.Order
 	var temp []byte
 	err := res.Scan(&op.Id, &op.Status, &temp, &op.Total, &op.Currency)
