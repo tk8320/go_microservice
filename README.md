@@ -11,7 +11,7 @@ app
 |	├── routes/
 |	│   	└── routes.go
 |	└── models
-| 			└── models.go
+| 			  └── models.go
 ├── pkg
 ├── bin
 ├── README.md
