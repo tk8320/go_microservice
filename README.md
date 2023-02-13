@@ -36,13 +36,16 @@ Prerequisite to run on docker:
 
 **Commands to run the service :**
 
-`git clone https://github.com/tk8320/go_microservice app/`
-`git checkout master`
-`cd app`
-`docker build -t go_microservice .`
-`docker run -d -p 8080:8080 go_microservice`
-   
-  **Testing:**
+```
+git clone https://github.com/tk8320/go_microservice app/
+git checkout master
+cd app
+docker build -t go_microservice .
+docker run -d -p 8080:8080 go_microservice
+```
+
+**Testing:**
+  
   Automated test are already ran at the time of testing.
   If need to run the test again then open docker terminal and run go inside `/app` directory and run `go test -v .`
   The test output will be printed on screen
