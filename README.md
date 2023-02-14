@@ -44,7 +44,7 @@ docker run -d -p 8080:8080 go_microservice
 ```
    
   **Testing:**
-  Automated test are already ran at the time of testing.
+  Automated test are already ran at the time of building.
   If need to run the test again then open docker terminal and run go inside `/app` directory and run `go test -v .`
   The test output will be printed on screen
 
