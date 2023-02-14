@@ -5,15 +5,15 @@ This is an Order Management microservice built using Golang and MySQL.
 The Directory structure is as follows
 
 ```
-app/
+app
 │
-├── src/
+├── src
 |	├── routes/
 |	│   	└── routes.go
-|	└── models/
-| 			 └── models.go
-├── pkg/
-├── bin/
+|	└── models
+| 			└── models.go
+├── pkg
+├── bin
 ├── README.md
 ├── microservice_test.go
 ├── Dockerfile
@@ -36,16 +36,38 @@ Prerequisite to run on docker:
 
 **Commands to run the service :**
 
-```
-git clone https://github.com/tk8320/go_microservice app/
-git checkout master
-cd app
-docker build -t go_microservice .
-docker run -d -p 8080:8080 go_microservice
-```
-
-**Testing:**
-  
+`git clone https://github.com/tk8320/go_microservice app/`
+`git checkout master`
+`cd app`
+`docker build -t go_microservice .`
+`docker run -d -p 8080:8080 go_microservice`
+   
+  **Testing:**
   Automated test are already ran at the time of testing.
   If need to run the test again then open docker terminal and run go inside `/app` directory and run `go test -v .`
   The test output will be printed on screen
+
+**API ENDPOINTS**
+1.  "/order" : 
+		Allowed Methods : ["GET"]
+		Description : View all orders 
+
+2. "/order/id : int " :
+		Allowed Methods : ["GET", "PUT", "DELETE"]
+		Description : Get order info by order id 
+	
+3. "order/create" :
+		Allowed Methods : ["POST"]
+		Description : Create order 
+		Payload: `{"status":  "ORDER_CREATED","items":  [{"id":  12,"Description":  "Fruit Slushie","price":  29.99,"quantity":  1}],"total":  29.99,"currencyUnit":  "USD"}`
+
+4. "order/search":
+		Allowed Methods : ["POST"]
+		Description : Search orders and sort
+		Payload:
+		`{"limit":5,"orderAsc":"id","currencyUnit":"USD","status":"ORDER_PLACED"}`
+		Search Parameters : ["status", "currencyUnit"]
+		Sort Parameters : 
+		limit : limit the results
+		orderAsc : order by fieldname in ascending order
+		orderDesc : order by fieldname in Descending order
