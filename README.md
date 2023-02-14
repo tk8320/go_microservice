@@ -57,12 +57,12 @@ docker run -d -p 8080:8080 go_microservice
 		Allowed Methods : ["GET", "PUT", "DELETE"]
 		Description : Get order info by order id 
 	
-3. "order/create" :
+3. "/order/create" :
 		Allowed Methods : ["POST"]
 		Description : Create order 
 		Payload: `{"status":  "ORDER_CREATED","items":  [{"id":  12,"Description":  "Fruit Slushie","price":  29.99,"quantity":  1}],"total":  29.99,"currencyUnit":  "USD"}`
 
-4. "order/search":
+4. "/order/search":
 		Allowed Methods : ["POST"]
 		Description : Search orders and sort
 		Payload:
